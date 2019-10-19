@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+<title>简单jquery点击水波扩散效果,支持自定义颜色</title>
+<link href="http://www.imuum.com/demo/demo-style.css" rel="stylesheet">
+<style>
+*{
+  padding: 0;
+  margin: 0;
+}
+body{
+  overflow:hidden; 
+  margin:0; 
+  padding:0; 
+  height:100%;
+  font-family: '微软雅黑';
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
+.box ul{
+  overflow: hidden;
+  list-style: none;
+  margin: 50px auto;
+  max-width: 808px
+}
+.box ul li{
+  width: 200px;
+  height: 200px;
+  float: left;
+  background: #866AD4;
+  margin-right: 2px;
+  position: relative;
+  margin-bottom: 2px;
+  overflow: hidden;
+  font-size: 33px;
+  color: #fff;
+  text-align: center;
+  line-height: 200px
+}
+.ripple{
+  position: absolute;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  overflow: hidden;
+  -webkit-animation:ripple 1.6s;
+  animation:ripple 1.6s;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    -webkit-transform: scale(1);
+     transform: scale(1);
+    opacity: 0.2;
+  }
+  100% {
+    -webkit-transform: scale(100);
+     transform: scale(100);
+    opacity: 0;
+  }
+}
+ 
+@keyframes ripple {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  100% {
+    -webkit-transform: scale(100);
+    transform: scale(100);
+    opacity: 0;
+  }
+}               
+</style>
+
+
+</head>
+<body>
+  <div class="nav-mse">
+    <ul>
+      <li class="right-mse"><a href="http://www.imuum.com/" title="木木博客">木木博客</a></li>
+      <li><a href="http://www.imuum.com/zhuti" title="WordPress主题">WordPress主题</a></li>
+      <li><a href="http://www.imuum.com/qianduankaifa/jquery" title="jQuery">jQuery</a></li>
+      <li><a href="http://www.imuum.com/qianduankaifa/css3" title="CSS3">CSS3</a></li>
+      <li><a href="http://www.imuum.com/qianduankaifa/html" title="HTMl5">HTMl5</a></li>
+    </ul>
+  </div>
+<!-- 以上html代码请忽略 -->
+
+    <div class="box">
+        <ul>
+            <!-- data-ripple-background值为点击后的过度背景颜色 -->
+            <li ripple="ripple" data-ripple-background='#8AFF00'>木</li>
+            <li ripple="ripple" data-ripple-background='#ff0000'>木</li>
+            <li ripple="ripple" data-ripple-background='#00FFFA'>博</li>
+            <li ripple="ripple" data-ripple-background='#000'>客</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+       $(function(){
+           $('[ripple]').on('click',function(e){
+                var rippleDiv = $('<div class="ripple"></div>');
+                pOffset = $(this).offset();
+                rippleX = e.pageX - pOffset.left;
+                rippleY = e.pageY - pOffset.top;
+                ripple = $('.ripple');
+
+                rippleDiv.css({
+                    left:rippleX - ripple.width() / 2,
+                    top:rippleY - ripple.height() / 2,
+                    background: $(this).attr('data-ripple-background')
+                }).appendTo($(this));
+
+                window.setTimeout(function () {
+                    rippleDiv.remove();
+                }, 1500)
+            })
+       })
+    </script>
+
+
+
+
+
+    <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>更多精彩内容：<a href="http://www.imuum.com/" target="_blank" title="木木博客" style="color:#f00">木木博客</a></p>
+</div>
+</body>
+</html>
